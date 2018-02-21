@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       login @user
+      remember user
       flash[:success] = "Welcome to the Awesome Blog Application"
       redirect_to @user
     else
