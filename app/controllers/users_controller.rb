@@ -15,6 +15,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.new(user_params)
 
@@ -25,6 +29,15 @@ class UsersController < ApplicationController
       redirect_to @user
     else
       render 'new'
+    end
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
     end
   end
 
@@ -41,9 +54,8 @@ class UsersController < ApplicationController
 
     def logged_in_user
       unless logged_in?
-        store_location
         flash[:danger] = "Please log in."
-        redirect_to log_path
+        redirect_to login_path
       end
     end
 
