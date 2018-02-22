@@ -19,6 +19,8 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'jquery-rails'
 
+gem 'faker', '1.7.3'
+
 gem 'bootstrap-sass', '3.3.7'
 
 # Use ActiveModel has_secure_password
