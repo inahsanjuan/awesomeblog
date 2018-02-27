@@ -24,10 +24,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      log_in @user
-      remember @user
-      flash[:success] = "Welcome to the Awesome Blog Application"
-      redirect_to @user
+      # log_in @user
+      UserMailer.account_activation(@user).deliver_now
+      # remember @user
+      flash[:info] = "Please check your email"
+      redirect_to root_path
     else
       render 'new'
     end
