@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token, :activation_token
+
   has_many :microposts, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship",
                                   foreign_key: "follower_id",
@@ -10,8 +12,6 @@ class User < ApplicationRecord
                        source: :followed
   has_many :followers, through: :passive_relationships,
                        source: :follower
-
-  attr_accessor :remember_token
 
   before_save :downcase_email
   before_create :create_activation_digest
