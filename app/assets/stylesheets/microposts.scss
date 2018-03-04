@@ -1,3 +1,30 @@
 // Place all the styles related to the Microposts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.microposts {
+  .vote {
+    margin-left: 60px;
+
+    form {
+      display: inline-block;
+    }
+
+    button {
+      background: none;
+      border: 0;
+      padding: 0;
+      margin-top: 5px;
+      font-size: 0.9em;
+      font-weight: bold;
+
+      &.upvote {
+      color: #4CAF50;
+      }
+
+      &.downvote {
+      color: coral;
+      }
+    }
+  }
+}

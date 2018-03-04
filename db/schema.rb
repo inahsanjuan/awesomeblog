@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228014750) do
+ActiveRecord::Schema.define(version: 20180301032215) do
 
   create_table "microposts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "content"
@@ -48,5 +48,17 @@ ActiveRecord::Schema.define(version: 20180228014750) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "votes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "micropost_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["micropost_id"], name: "index_votes_on_micropost_id"
+    t.index ["user_id", "micropost_id"], name: "index_votes_on_user_id_and_micropost_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "microposts", "users"
+  add_foreign_key "votes", "microposts"
+  add_foreign_key "votes", "users"
 end

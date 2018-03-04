@@ -1,5 +1,6 @@
 <li id="micropost-<%= micropost.id %>">
     <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+
     <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
     <div class="content">
         <%= micropost.content %>
@@ -10,6 +11,25 @@
         <% if current_user?(micropost.user) %>
             <%= link_to "delete", micropost, method: :delete, 
                                 data: {confirm: "You sure?"} %>
+        <% end %>
+    </div>
+    <div class="vote">
+        <span><%= micropost.votes.count %></span>
+        <% if (micropost.votes.exists?(user_id: current_user.id)) %>
+            <%= form_for(micropost.votes.find_by(user_id: current_user.id),
+                         html: { method: :delete }) do |f| %>
+                <button type="submit" class="downvote">
+                    <i class="glyphicon glyphicon-arrow-down"></i> Downvote
+                </button>
+            <% end %>
+        <% else %>
+            <%= form_for :vote, url: votes_path do |f| %>
+                <%= hidden_field_tag :micropost_id, micropost.id %>
+
+                <button type="submit" class="upvote">
+                    <i class="glyphicon glyphicon-arrow-up"></i> Upvote
+                </button>
+            <% end %>
         <% end %>
     </div>
 </li>
